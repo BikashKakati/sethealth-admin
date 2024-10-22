@@ -1,11 +1,21 @@
+import { Route, Routes } from "react-router-dom"
+import SignUp from "./pages/auth/sign-up/SignUp"
+import SignIn from "./pages/auth/sign-in/SignIn"
 
 
-function App() {
+const App: React.FC = () => {
 
   return (
-    <div>
-      <p className="text-[5rem]">SetHealth</p>
-    </div>
+
+    <Routes>
+
+      {/* AUTH Section*/}
+        <Route index path="/sign-up" element={<SignUp />} />
+        <Route path="/sign-in" element={<SignIn />} />
+
+
+      {/* ROOT Section */}
+    </Routes>
   )
 }
 

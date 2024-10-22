@@ -1,3 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+@layer utilities{
+    .img-cover{
+        @apply w-full h-full object-center object-cover
+    }
+
+    .img-contain{
+        @apply w-full h-full object-center object-contain
+    }
+}
