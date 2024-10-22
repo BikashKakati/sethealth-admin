@@ -1,14 +1,13 @@
-import { useState } from "react"
+import { useState } from "react";
 import brainImage from "@/assets/img/brain-img.png";
 import { ArrowRight, AtSign, Lock } from "lucide-react";
 import Artwork from "../common/Artwork";
 const SignIn: React.FC = () => {
-
-  const [email, setEmail] = useState<string>('')
-  const [password, setPassword] = useState<string>('')
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
     // Handle login logic here
     console.log('Login attempted with:', email, password)
   }
@@ -21,10 +20,15 @@ const SignIn: React.FC = () => {
       {/* Login Form Column */}
       <div className="lg:w-1/3 flex items-center justify-center p-8 lg:p-16">
         <div className="w-full max-w-md">
-          <h1 className="text-3xl font-bold text-blue-900 mb-8">Welcome Back</h1>
+          <h1 className="text-3xl font-bold text-blue-900 mb-8">
+            Welcome Back
+          </h1>
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="relative">
-              <AtSign className="absolute top-3 left-3 text-blue-500" size={20} />
+              <AtSign
+                className="absolute top-3 left-3 text-blue-500"
+                size={20}
+              />
               <input
                 type="email"
                 placeholder="Email"
@@ -54,8 +58,8 @@ const SignIn: React.FC = () => {
             </button>
           </form>
           <p className="mt-6 text-center text-blue-800">
-            Don't have an account?{' '}
-            <a href="#" className="text-blue-600 hover:underline">
+            Don't have an account?{" "}
+            <a href="/sign-up" className="text-blue-600 hover:underline">
               Sign up
             </a>
           </p>
@@ -63,7 +67,7 @@ const SignIn: React.FC = () => {
       </div>
       <Artwork mainImage={brainImage} title={title} subtitle={subtitle}/>
     </div>
-  )
-}
+  );
+};
 
-export default SignIn
+export default SignIn;
