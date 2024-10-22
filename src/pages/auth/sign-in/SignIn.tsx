@@ -1,25 +1,29 @@
-import { useState } from "react"
+import { useState } from "react";
 import brainImage from "@/assets/img/brain-img.png";
 import { ArrowRight, AtSign, Lock } from "lucide-react";
 const SignIn: React.FC = () => {
-
-  const [email, setEmail] = useState<string>('')
-  const [password, setPassword] = useState<string>('')
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
     // Handle login logic here
-    console.log('Login attempted with:', email, password)
-  }
+    console.log("Login attempted with:", email, password);
+  };
   return (
     <div className="h-screen flex items-center">
       {/* Login Form Column */}
-      <div className="lg:w-1/2 flex items-center justify-center p-8 lg:p-16">
+      <div className="lg:w-1/2 w-full flex items-center justify-center p-8 lg:p-16">
         <div className="w-full max-w-md">
-          <h1 className="text-3xl font-bold text-blue-900 mb-8">Welcome Back</h1>
+          <h1 className="text-3xl font-bold text-blue-900 mb-8">
+            Welcome Back
+          </h1>
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="relative">
-              <AtSign className="absolute top-3 left-3 text-blue-500" size={20} />
+              <AtSign
+                className="absolute top-3 left-3 text-blue-500"
+                size={20}
+              />
               <input
                 type="email"
                 placeholder="Email"
@@ -49,16 +53,16 @@ const SignIn: React.FC = () => {
             </button>
           </form>
           <p className="mt-6 text-center text-blue-800">
-            Don't have an account?{' '}
-            <a href="#" className="text-blue-600 hover:underline">
+            Don't have an account?{" "}
+            <a href="/sign-up" className="text-blue-600 hover:underline">
               Sign up
             </a>
           </p>
         </div>
       </div>
 
-      <div className="hidden lg:flex w-1/2 relative bg-gradient-to-br from-blue-400 to-blue-600 h-full items-center justify-center">
-        <div className="w-[28rem] absolute -left-[7rem] top-[1rem]">
+      <div className="hidden lg:flex w-1/2  bg-gradient-to-br from-blue-400 to-blue-600 h-full items-center justify-center">
+        <div className="w-[15rem] absolute left-1/2 right-1/2 -translate-x-1/2  top-0">
           <img
             src={brainImage}
             alt="Brain visualization"
@@ -67,11 +71,13 @@ const SignIn: React.FC = () => {
         </div>
         <div className="text-white text-center">
           <h2 className="text-4xl font-bold mb-4">HealthTech AI</h2>
-          <p className="text-xl line-clam-2">Revolutionizing healthcare with cutting-edge technology</p>
+          <p className="text-xl line-clam-2">
+            Revolutionizing healthcare with cutting-edge technology
+          </p>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default SignIn
+export default SignIn;
