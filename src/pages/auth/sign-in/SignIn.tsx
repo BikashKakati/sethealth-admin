@@ -1,62 +1,92 @@
-import { useState } from "react";
 import brainImage from "@/assets/img/brain-img.png";
-import { ArrowRight, AtSign, Lock } from "lucide-react";
-import Artwork from "../common/Artwork";
+import { ArrowRight } from "lucide-react";
+import Artwork from "./Artwork";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { signInSchema } from "../schemas";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+
 const SignIn: React.FC = () => {
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  const form = useForm<z.infer<typeof signInSchema>>({
+    resolver: zodResolver(signInSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = (values: z.infer<typeof signInSchema>) => {
     // Handle login logic here
-    console.log('Login attempted with:', email, password)
-  }
+    console.log("Login attempted with:", values);
+  };
 
-  const title = "SetHealth";
+  const title = "Set Your Health";
   const subtitle = "Revolutionizing healthcare with cutting-edge technology";
 
   return (
-    <div className="h-screen flex flex-col items-center md:flex-row">
-      {/* Login Form Column */}
-      <div className="lg:w-1/3 flex items-center justify-center p-8 lg:p-16">
-        <div className="w-full max-w-md">
-          <h1 className="text-3xl font-bold text-blue-900 mb-8">
+    <div className="h-screen flex flex-col items-center md:flex-row overflow-hidden">
+      {/* Login Form*/}
+      <div className="md:w-[40%] w-full flex items-center justify-center p-8 lg:p-16 relative">
+    
+        <div className="w-full max-w-md z-20">
+          <h1 className="text-4xl font-bold text-blue-900 mb-8">
             Welcome Back
           </h1>
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="relative">
-              <AtSign
-                className="absolute top-3 left-3 text-blue-500"
-                size={20}
-              />
-              <input
-                type="email"
-                placeholder="Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-blue-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
-                required
-              />
-            </div>
-            <div className="relative">
-              <Lock className="absolute top-3 left-3 text-blue-500" size={20} />
-              <input
-                type="password"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-blue-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
-                required
-              />
-            </div>
-            <button
-              type="submit"
-              className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors duration-300 flex items-center justify-center"
+          <Form {...form}>
+            <form
+              onSubmit={form.handleSubmit(handleSubmit)}
+              className="space-y-6"
             >
-              Login
-              <ArrowRight className="ml-2" size={20} />
-            </button>
-          </form>
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Input
+                        placeholder="Email"
+                        {...field}
+                        className="border-blue-300 focus:!ring-blue-500 transition-all"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Input
+                        placeholder="Password"
+                        {...field}
+                        className="border-blue-300 focus:!ring-blue-500 transition-all"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <Button
+                type="submit"
+                className="w-full flex items-center justify-center"
+              >
+                Login
+                <ArrowRight className="ml-2" size={20} />
+              </Button>
+            </form>
+          </Form>
           <p className="mt-6 text-center text-blue-800">
             Don't have an account?{" "}
             <a href="/sign-up" className="text-blue-600 hover:underline">
@@ -65,7 +95,12 @@ const SignIn: React.FC = () => {
           </p>
         </div>
       </div>
-      <Artwork mainImage={brainImage} title={title} subtitle={subtitle}/>
+      <Artwork
+        mainImage={brainImage}
+        title={title}
+        subtitle={subtitle}
+        mainImageAlt="brain visualization"
+      />
     </div>
   );
 };
