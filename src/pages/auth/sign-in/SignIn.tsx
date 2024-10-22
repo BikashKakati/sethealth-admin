@@ -1,6 +1,7 @@
 import { useState } from "react"
 import brainImage from "@/assets/img/brain-img.png";
 import { ArrowRight, AtSign, Lock } from "lucide-react";
+import Artwork from "../common/Artwork";
 const SignIn: React.FC = () => {
 
   const [email, setEmail] = useState<string>('')
@@ -11,10 +12,14 @@ const SignIn: React.FC = () => {
     // Handle login logic here
     console.log('Login attempted with:', email, password)
   }
+
+  const title = "SetHealth";
+  const subtitle = "Revolutionizing healthcare with cutting-edge technology";
+
   return (
-    <div className="h-screen flex items-center">
+    <div className="h-screen flex flex-col items-center md:flex-row">
       {/* Login Form Column */}
-      <div className="lg:w-1/2 flex items-center justify-center p-8 lg:p-16">
+      <div className="lg:w-1/3 flex items-center justify-center p-8 lg:p-16">
         <div className="w-full max-w-md">
           <h1 className="text-3xl font-bold text-blue-900 mb-8">Welcome Back</h1>
           <form onSubmit={handleSubmit} className="space-y-6">
@@ -56,20 +61,7 @@ const SignIn: React.FC = () => {
           </p>
         </div>
       </div>
-
-      <div className="hidden lg:flex w-1/2 relative bg-gradient-to-br from-blue-400 to-blue-600 h-full items-center justify-center">
-        <div className="w-[28rem] absolute -left-[7rem] top-[1rem]">
-          <img
-            src={brainImage}
-            alt="Brain visualization"
-            className="img-contain"
-          />
-        </div>
-        <div className="text-white text-center">
-          <h2 className="text-4xl font-bold mb-4">HealthTech AI</h2>
-          <p className="text-xl line-clam-2">Revolutionizing healthcare with cutting-edge technology</p>
-        </div>
-      </div>
+      <Artwork mainImage={brainImage} title={title} subtitle={subtitle}/>
     </div>
   )
 }
