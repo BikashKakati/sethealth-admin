@@ -6,7 +6,7 @@ type WrapperProptype = {
 }
 const Wrapper:React.FC<WrapperProptype> = ({className="",children}) => {
   return (
-    <div className={`max-w-[110rem] w-full h-full mx-auto px-10 ${className}`}>
+    <div className={`max-w-[86rem] w-full flex-1 mx-auto px-10 ${className}`}>
         {children}
     </div>
   )

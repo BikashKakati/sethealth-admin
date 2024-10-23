@@ -17,7 +17,7 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
+    --background: 240, 6%, 90%;
     --foreground: 222.2 84% 4.9%;
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
@@ -77,7 +77,10 @@
   * {
     @apply border-border;
   }
+  body,#root{
+    @apply h-full w-full;
+  }
   body {
-    @apply bg-background text-foreground font-roboto;
+    @apply bg-background text-foreground font-roboto h-screen w-screen;
   }
 }
