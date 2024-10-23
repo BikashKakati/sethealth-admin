@@ -52,6 +52,8 @@ const MainDashboard: React.FC = () => {
         <AnalyticsBox>
           <Bar data={data} options={options} className="h-full"/>
         </AnalyticsBox>
+
+        
       </div>
       <div className="w-[27rem] h-[27rem]">
         <img src={heartImg} className="img-contain" />
