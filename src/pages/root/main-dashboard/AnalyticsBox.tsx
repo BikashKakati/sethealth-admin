@@ -5,7 +5,7 @@ type AnalyticsBoxPropType = {
 }
 const AnalyticsBox:React.FC<AnalyticsBoxPropType> = ({children}) => {
     return (
-            <div className="h-[15rem] rounded-2xl bg-slate-200/50 border-[3px] border-zinc-50">
+            <div className="h-[18rem] rounded-2xl bg-slate-200/50 border-[3px] p-2 border-zinc-50">
                 {children}
             </div>
     )
