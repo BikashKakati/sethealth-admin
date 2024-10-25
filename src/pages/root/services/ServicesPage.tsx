@@ -13,69 +13,16 @@ import { Stethoscope, Search } from "lucide-react";
 import DataTable, { TableColumn } from "react-data-table-component";
 import AddServicesModal from "@/components/modals/AddServicesModal";
 import { Service } from "@/types";
-
-const initialServices: Service[] = [
-  {
-    id: 1,
-    name: "General Consultation",
-    symptoms: ["Fever", "Fatigue", "Headache"],
-  },
-  {
-    id: 2,
-    name: "Cardiology Check-up",
-    symptoms: ["Chest Pain", "Shortness of Breath", "Irregular Heartbeat"],
-  },
-  {
-    id: 3,
-    name: "Dermatology Examination",
-    symptoms: ["Rash", "Itching", "Skin Discoloration"],
-  },
-  {
-    id: 4,
-    name: "Orthopedic Assessment",
-    symptoms: ["Joint Pain", "Swelling", "Limited Range of Motion"],
-  },
-  {
-    id: 5,
-    name: "Pediatric Care",
-    symptoms: [
-      "Growth Concerns",
-      "Developmental Delays",
-      "Childhood Illnesses",
-    ],
-  },
-  {
-    id: 6,
-    name: "Neurology Consultation",
-    symptoms: ["Headaches", "Dizziness", "Numbness"],
-  },
-  {
-    id: 7,
-    name: "Gastroenterology Screening",
-    symptoms: ["Abdominal Pain", "Nausea", "Digestive Issues"],
-  },
-  {
-    id: 8,
-    name: "Ophthalmology Check-up",
-    symptoms: ["Vision Changes", "Eye Pain", "Redness"],
-  },
-  {
-    id: 9,
-    name: "ENT Examination",
-    symptoms: ["Ear Pain", "Sore Throat", "Sinus Pressure"],
-  },
-  {
-    id: 10,
-    name: "Endocrinology Consultation",
-    symptoms: ["Fatigue", "Weight Changes", "Hormonal Imbalances"],
-  },
-];
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
 
 const ServicesPage = () => {
-  const [services, setServices] = useState(initialServices);
+  const services = useSelector(
+    (state: RootState) => state.serveicesSlice.services
+  );
   const [searchTerm, setSearchTerm] = useState("");
   const filteredServices = services.filter(
-    (service) =>
+    (service: Service) =>
       service.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       service.symptoms.some((symptom) =>
         symptom.toLowerCase().includes(searchTerm.toLowerCase())
@@ -122,7 +69,7 @@ const ServicesPage = () => {
                   className="pl-8"
                 />
               </div>
-              <AddServicesModal setServices={setServices} />
+              <AddServicesModal />
             </div>
           </div>
           <CardDescription>

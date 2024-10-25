@@ -13,15 +13,20 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Plus } from "lucide-react";
 import { Input } from "../ui/input";
-import { Service } from "@/types";
-interface AddServicesModalProps {
-  setServices: React.Dispatch<React.SetStateAction<Service[]>>;
-}
-const AddServicesModal: React.FC<AddServicesModalProps> = ({ setServices }) => {
+import { DoctorModalProptype, Service } from "@/types";
+import { useDispatch } from "react-redux";
+import { addServices } from "@/store/reducersSlice/Doctor";
+
+const AddServicesModal: React.FC<DoctorModalProptype> = ({
+  hideTrigger = false,
+  children,
+}) => {
   const [newService, setNewService] = useState({ name: "", symptoms: "" });
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const dispatch = useDispatch();
 
-  const handleAddService = () => {
+  const handleAddService = (e: React.FormEvent) => {
+    e.preventDefault();
     const symptoms = newService.symptoms
       .split(",")
       .map((s) => s.trim())
@@ -31,7 +36,7 @@ const AddServicesModal: React.FC<AddServicesModalProps> = ({ setServices }) => {
       name: newService.name,
       symptoms,
     };
-    setServices((prev) => [...prev, newServiceObj]);
+    dispatch(addServices(newServiceObj));
     setNewService({ name: "", symptoms: "" });
     setIsDialogOpen(false);
   };
@@ -39,10 +44,14 @@ const AddServicesModal: React.FC<AddServicesModalProps> = ({ setServices }) => {
   return (
     <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
       <DialogTrigger asChild>
-        <Button className="bg-blue-600 hover:bg-blue-700 text-white">
-          <Plus className="mr-2 h-4 w-4" />
-          Add Service
-        </Button>
+        {hideTrigger ? (
+          children
+        ) : (
+          <Button className="bg-blue-600 hover:bg-blue-700 text-white">
+            <Plus className="mr-2 h-4 w-4" />
+            Add Service
+          </Button>
+        )}
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
