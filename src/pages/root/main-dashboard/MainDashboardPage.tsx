@@ -54,12 +54,13 @@ const MainDashboardPage: React.FC = () => {
       },
     },
   };
+
   return (
     // Total doctors, patients, request for appointment, reshedules, cancelations, revenue
     <div className="flex w-full h-full relative items-center justify-center">
       <AnalyticsBox>
-            <Bar data={data} options={options} className="h-full" />
-          </AnalyticsBox>
+        <Bar data={data} options={options} className="h-full" />
+      </AnalyticsBox>
       {/* <div className="w-full h-full z-10 absolute top-0 left-0 flex gap-20 justify-between">
         <section className="md:w-1/2">
           <AnalyticsBox>

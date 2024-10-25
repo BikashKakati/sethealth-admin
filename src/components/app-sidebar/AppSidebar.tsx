@@ -1,22 +1,19 @@
-
-
 import {
-    Sidebar,
-    SidebarContent,
-    SidebarGroup,
-    SidebarGroupContent,
-    SidebarHeader,
-    SidebarMenu,
-    SidebarMenuAction,
-    SidebarMenuButton,
-    SidebarMenuItem
+  Sidebar,
+  SidebarContent,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuAction,
+  SidebarMenuButton,
+  SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { items } from "@/constants";
 import { PlusCircle } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 
 // Menu items.
-
 
 export function AppSidebar() {
   const location = useLocation();

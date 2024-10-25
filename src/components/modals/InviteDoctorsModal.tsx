@@ -13,7 +13,7 @@ import {
 import { Loader2, Stethoscope } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { inviteDoctorsSchema } from "./scema";
+import { inviteDoctorsSchema } from "./schema";
 import {
   Form,
   FormControl,

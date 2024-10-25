@@ -3,19 +3,21 @@ import Wrapper from "../common/Wrapper";
 import StyledButton from "../common/StyledButton";
 import { Button } from "../ui/button";
 import { Search } from "lucide-react";
-import { SidebarTrigger } from "../ui/sidebar";
+// import { SidebarTrigger } from "../ui/sidebar";
 import InviteDoctorsModal from "../modals/InviteDoctorsModal";
 
 const Navbar: React.FC = () => {
   return (
-    <nav className='h-20 w-full flex items-center'>
-      <Wrapper className='flex items-center justify-between'>
-        <section className='flex items-center'>
-          <SidebarTrigger/>
-          <div className='flex items-center'>
-          <StyledButton className='-right-2'>Doctors</StyledButton>
-          <div className='h-5 w-4 bg-zinc-50'></div>
-          <StyledButton className={`-left-2`} active={true}>Patients</StyledButton>
+    <nav className="h-20 w-full flex items-center">
+      <Wrapper className="flex items-center justify-between">
+        <section className="flex items-center">
+          {/* <SidebarTrigger/> */}
+          <div className="flex items-center">
+            <StyledButton className="-right-2">Doctors</StyledButton>
+            <div className="h-5 w-4 bg-zinc-50"></div>
+            <StyledButton className={`-left-2`} active={true}>
+              Patients
+            </StyledButton>
           </div>
         </section>
         <section className="flex items-center gap-4">
