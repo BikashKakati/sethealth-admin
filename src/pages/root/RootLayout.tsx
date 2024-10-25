@@ -1,16 +1,21 @@
+import { AppSidebar } from '@/components/app-sidebar/AppSidebar'
 import Wrapper from '@/components/common/Wrapper'
 import Navbar from '@/components/navbar/Navbar'
+import { SidebarProvider} from '@/components/ui/sidebar'
 import React from 'react'
 import { Outlet } from 'react-router-dom'
 
 const RootLayout: React.FC = () => {
   return (
-    <div className='flex flex-col items-center justify-center h-full w-full'>
+    <SidebarProvider>
+      <AppSidebar/>
+    <main className='flex flex-col items-center justify-center h-full w-full'>
       <Navbar />
       <Wrapper className='my-5'>
         <Outlet />
       </Wrapper>
-    </div>
+    </main>
+    </SidebarProvider>
   )
 }
 
