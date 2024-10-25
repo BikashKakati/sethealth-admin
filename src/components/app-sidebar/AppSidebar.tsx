@@ -7,7 +7,7 @@ import {
   SidebarMenu,
   SidebarMenuAction,
   SidebarMenuButton,
-  SidebarMenuItem,
+  SidebarMenuItem
 } from "@/components/ui/sidebar";
 import { items } from "@/constants";
 import { PlusCircle } from "lucide-react";

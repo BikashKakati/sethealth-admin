@@ -77,7 +77,7 @@ const ServicesPage = () => {
   const filteredServices = services.filter(
     (service) =>
       service.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      service.symptoms.some((symptom) =>
+      service.symptoms.some((symptom:string) =>
         symptom.toLowerCase().includes(searchTerm.toLowerCase())
       )
   );

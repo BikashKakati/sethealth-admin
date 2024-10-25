@@ -15,3 +15,10 @@ export type DoctorModalProptype = {
   hideTrigger?: boolean;
   children?: ReactNode;
 };
+
+
+export interface Service {
+  id: number;
+  name: string;
+  symptoms: string[];
+}

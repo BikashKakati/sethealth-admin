@@ -1,8 +1,11 @@
+import DoctorInfoTable from "./DoctorInfoTable"
 
 
 const DoctorsPage = () => {
   return (
-    <div>DoctorsPage</div>
+    <div>
+      <DoctorInfoTable/>
+    </div>
   )
 }
 
