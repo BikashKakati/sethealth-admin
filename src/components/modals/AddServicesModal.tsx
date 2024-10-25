@@ -13,18 +13,21 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Plus } from "lucide-react";
 import { Input } from "../ui/input";
-const AddServicesModal = ({ setServices }) => {
+import { Service } from "@/types";
+interface AddServicesModalProps {
+  setServices: React.Dispatch<React.SetStateAction<Service[]>>;
+}
+const AddServicesModal: React.FC<AddServicesModalProps> = ({ setServices }) => {
   const [newService, setNewService] = useState({ name: "", symptoms: "" });
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-  const handleAddService = (e) => {
-    e.preventDefault();
+  const handleAddService = () => {
     const symptoms = newService.symptoms
       .split(",")
       .map((s) => s.trim())
       .filter((s) => s !== "");
-    const newServiceObj = {
-      id: `${Date.now()}`,
+    const newServiceObj: Service = {
+      id: 1,
       name: newService.name,
       symptoms,
     };

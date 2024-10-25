@@ -6,15 +6,15 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-  CardFooter,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
 import { Stethoscope, Search } from "lucide-react";
-import DataTable from "react-data-table-component";
+import DataTable, { TableColumn } from "react-data-table-component";
 import AddServicesModal from "@/components/modals/AddServicesModal";
+import { Service } from "@/types";
 
-const initialServices = [
+const initialServices: Service[] = [
   {
     id: 1,
     name: "General Consultation",
@@ -82,7 +82,7 @@ const ServicesPage = () => {
       )
   );
 
-  const columns = [
+  const columns: TableColumn<Service>[] = [
     {
       name: "Service Name",
       selector: (row) => row.name,
@@ -93,7 +93,7 @@ const ServicesPage = () => {
       name: "Symptoms",
       cell: (row) => (
         <div className="flex flex-wrap gap-2">
-          {row.symptoms.map((symptom, index) => (
+          {row.symptoms.map((symptom: string, index: number) => (
             <Badge key={index} variant="secondary">
               {symptom}
             </Badge>
