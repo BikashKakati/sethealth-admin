@@ -122,8 +122,8 @@ const ServicesPage = () => {
                   className="pl-8"
                 />
               </div>
+              <AddServicesModal setServices={setServices} />
             </div>
-            <AddServicesModal setServices={setServices} />
           </div>
           <CardDescription>
             Manage and view your medical services and associated symptoms
