@@ -23,10 +23,13 @@ import {
   FormMessage,
 } from "../ui/form";
 import { z } from "zod";
+import { useInviteDoctorMutation } from "@/store/apiSlice/invite/inviteApi";
+// import { toast } from "react-toastify";
 
 const InviteDoctorsModal = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const isLoading = false;
+
+  const [sendInvite, { isLoading }] = useInviteDoctorMutation();
 
   const form = useForm({
     resolver: zodResolver(inviteDoctorsSchema),
@@ -36,8 +39,14 @@ const InviteDoctorsModal = () => {
     },
   });
 
-  const handleInvite = (values: z.infer<typeof inviteDoctorsSchema>) => {
-    console.log(values);
+  const handleInvite = async (values: z.infer<typeof inviteDoctorsSchema>) => {
+    try {
+      const response = await sendInvite(values);
+      console.log(response);
+    } catch (err) {
+      console.log(err);
+      // toast.error(err);
+    }
   };
   return (
     <Dialog open={isMenuOpen} onOpenChange={() => setIsMenuOpen(!isMenuOpen)}>
