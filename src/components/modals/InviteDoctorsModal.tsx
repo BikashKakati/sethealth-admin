@@ -23,7 +23,7 @@ import {
   FormLabel,
   FormMessage,
 } from "../ui/form";
-import { inviteDoctorsSchema } from "./scema";
+import { inviteDoctorsSchema } from "./schema";
 import { DoctorModalProptype } from "@/types/index";
 
 const InviteDoctorsModal:React.FC<DoctorModalProptype> = ({hideTrigger=false,children}) => {
