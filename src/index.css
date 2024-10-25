@@ -1,4 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -16,6 +18,16 @@
 
 
 @layer base {
+  * {
+    @apply border-border;
+  }
+  html,body {
+    @apply bg-background text-foreground font-roboto h-full w-full;
+  }
+  #root{
+    @apply min-h-dvh w-full;
+  }
+
   :root {
     --background: 240, 6%, 90%;
     --foreground: 222.2 84% 4.9%;
@@ -89,24 +101,3 @@
 }
 
 
-@layer base {
-  * {
-    @apply border-border;
-  }
-  body,#root{
-    @apply h-full w-full;
-  }
-  body {
-    @apply bg-background text-foreground font-roboto h-screen w-screen;
-  }
-}
-
-
-@layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-}

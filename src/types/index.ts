@@ -1,5 +1,7 @@
 // Auth
 
+import { ReactNode } from "react";
+
 export type ArtworkProptype = {
   mainImage: string;
   mainImageAlt: string;
@@ -7,8 +9,9 @@ export type ArtworkProptype = {
   subtitle: string;
 };
 
-export interface Service {
-  id: number;
-  name: string;
-  symptoms: string[];
-}
+// Doctor modal
+
+export type DoctorModalProptype = {
+  hideTrigger?: boolean;
+  children?: ReactNode;
+};

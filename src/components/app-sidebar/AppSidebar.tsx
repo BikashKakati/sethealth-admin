@@ -12,12 +12,12 @@ import {
 import { items } from "@/constants";
 import { PlusCircle } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
+import InviteDoctorsModal from "../modals/InviteDoctorsModal";
 
 // Menu items.
 
 export function AppSidebar() {
   const location = useLocation();
-
   return (
     <Sidebar>
       <SidebarHeader>
@@ -48,7 +48,9 @@ export function AppSidebar() {
                         "text-white hover:text-black"
                       }`}
                     >
-                      <PlusCircle className="h-4 w-4" />
+                      <InviteDoctorsModal hideTrigger>
+                        <PlusCircle className="h-4 w-4" />
+                      </InviteDoctorsModal>
                     </SidebarMenuAction>
                   )}
                 </SidebarMenuItem>

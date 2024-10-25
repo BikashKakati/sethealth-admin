@@ -1,4 +1,4 @@
-import { ArtworkProptype } from "@/types";
+import { ArtworkProptype } from "@/types/index";
 import React from "react";
 
 const Artwork: React.FC<ArtworkProptype> = ({

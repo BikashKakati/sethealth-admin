@@ -1,3 +1,4 @@
+import { store } from "@/store/store";
 import {
     Calendar,
     Home,
@@ -38,3 +39,5 @@ export const items: SidebarItemsType[]= [
       isAddButton:()=>{},
     },
   ];
+
+  export const dispatch = store.dispatch;
