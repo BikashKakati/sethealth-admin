@@ -1,6 +1,4 @@
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import {
   Dialog,
   DialogContent,
@@ -10,10 +8,13 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Loader2, Stethoscope } from "lucide-react";
-import { useForm } from "react-hook-form";
+import { Input } from "@/components/ui/input";
+import { useInviteDoctorMutation } from "@/store/apiSlice/inviteApi";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { inviteDoctorsSchema } from "./scema";
+import { Loader2, Stethoscope } from "lucide-react";
+import {useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 import {
   Form,
   FormControl,
@@ -22,14 +23,15 @@ import {
   FormLabel,
   FormMessage,
 } from "../ui/form";
-import { z } from "zod";
-import { useInviteDoctorMutation } from "@/store/apiSlice/invite/inviteApi";
-// import { toast } from "react-toastify";
+import { inviteDoctorsSchema } from "./scema";
+import { DoctorModalProptype } from "@/types/index";
 
-const InviteDoctorsModal = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+const InviteDoctorsModal:React.FC<DoctorModalProptype> = ({hideTrigger=false,children}) => {
 
   const [sendInvite, { isLoading }] = useInviteDoctorMutation();
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+  
+  
 
   const form = useForm({
     resolver: zodResolver(inviteDoctorsSchema),
@@ -51,12 +53,15 @@ const InviteDoctorsModal = () => {
   return (
     <Dialog open={isMenuOpen} onOpenChange={() => setIsMenuOpen(!isMenuOpen)}>
       <DialogTrigger asChild>
-        <Button
+        {
+          hideTrigger ? children:
+          <Button
           variant="default"
-          className="bg-blue-600 rounded-full  hover:bg-blue-700 text-white"
+          className="rounded-full text-white"
         >
           Invite Doctors
         </Button>
+        }
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
@@ -103,7 +108,7 @@ const InviteDoctorsModal = () => {
             <DialogFooter>
               <Button
                 type="submit"
-                className="bg-blue-600 mt-2 hover:bg-blue-700 text-white focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:outline-none transition-all duration-200"
+                className="mt-2 transition-all duration-200"
                 disabled={isLoading}
               >
                 {isLoading ? (
