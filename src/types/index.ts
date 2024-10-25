@@ -16,7 +16,7 @@ export type DoctorModalProptype = {
   children?: ReactNode;
 };
 
-
+//services
 export interface Service {
   id: number;
   name: string;
