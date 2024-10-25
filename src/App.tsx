@@ -1,7 +1,9 @@
 import { Route, Routes } from "react-router-dom";
 import SignIn from "./pages/auth/sign-in/SignIn";
 import RootLayout from "./pages/root/RootLayout";
-import MainDashboard from "./pages/root/main-dashboard/MainDashboard";
+import MainDashboardPage from "./pages/root/main-dashboard/MainDashboardPage";
+import DoctorsPage from "./pages/root/doctors/DoctorsPage";
+import PatientsPage from "./pages/root/patients/PatientsPage";
 
 const App: React.FC = () => {
   return (
@@ -11,7 +13,9 @@ const App: React.FC = () => {
 
       {/* ROOT Section */}
       <Route path="/" element={<RootLayout />}>
-        <Route index element={<MainDashboard />} />
+        <Route index element={<MainDashboardPage />} />
+        <Route path="/doctors" element={<DoctorsPage/>}/>
+        <Route path="/patients" element={<PatientsPage/>}/>
       </Route>
     </Routes>
   );

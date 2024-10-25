@@ -11,7 +11,6 @@ const Navbar: React.FC = () => {
       <Wrapper className='flex items-center justify-between'>
         <section className='flex items-center'>
           <SidebarTrigger/>
-          <h1>Logo</h1>
           <div className='flex items-center'>
           <StyledButton className='-right-2'>Doctors</StyledButton>
           <div className='h-5 w-4 bg-zinc-50'></div>

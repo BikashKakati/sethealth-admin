@@ -1,11 +1,9 @@
-import heartImg from "@/assets/img/heart-img.png";
-import AnalyticsBox from "./AnalyticsBox";
-import { Bar } from "react-chartjs-2";
 import "chart.js/auto";
 import { ChartData, ChartOptions } from "chart.js/auto";
-import { ClipboardPlus } from "lucide-react";
+import { Bar } from "react-chartjs-2";
+import AnalyticsBox from "./AnalyticsBox";
 
-const MainDashboard: React.FC = () => {
+const MainDashboardPage: React.FC = () => {
   const data: ChartData<"bar"> = {
     labels: [
       "19 Sept",
@@ -59,7 +57,10 @@ const MainDashboard: React.FC = () => {
   return (
     // Total doctors, patients, request for appointment, reshedules, cancelations, revenue
     <div className="flex w-full h-full relative items-center justify-center">
-      <div className="w-full h-full z-10 absolute top-0 left-0 flex gap-20 justify-between">
+      <AnalyticsBox>
+            <Bar data={data} options={options} className="h-full" />
+          </AnalyticsBox>
+      {/* <div className="w-full h-full z-10 absolute top-0 left-0 flex gap-20 justify-between">
         <section className="md:w-1/2">
           <AnalyticsBox>
             <Bar data={data} options={options} className="h-full" />
@@ -106,9 +107,9 @@ const MainDashboard: React.FC = () => {
       </div>
       <div className="w-[27rem] h-[27rem]">
         <img src={heartImg} className="img-contain" />
-      </div>
+      </div> */}
     </div>
   );
 };
 
-export default MainDashboard;
+export default MainDashboardPage;
