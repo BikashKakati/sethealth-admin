@@ -1,9 +1,10 @@
-import React from 'react'
-import Wrapper from '../common/Wrapper'
-import StyledButton from '../common/StyledButton'
-import { Button } from '../ui/button'
-import { Search } from 'lucide-react'
-import { SidebarTrigger } from '../ui/sidebar'
+import React from "react";
+import Wrapper from "../common/Wrapper";
+import StyledButton from "../common/StyledButton";
+import { Button } from "../ui/button";
+import { Search } from "lucide-react";
+import { SidebarTrigger } from "../ui/sidebar";
+import InviteDoctorsModal from "../modals/InviteDoctorsModal";
 
 const Navbar: React.FC = () => {
   return (
@@ -17,21 +18,24 @@ const Navbar: React.FC = () => {
           <StyledButton className={`-left-2`} active={true}>Patients</StyledButton>
           </div>
         </section>
-        <section>
-          <div className='border-[3px] rounded-full bg-background border-zinc-50 w-[18rem] relative flex items-center justify-between'>
-            <input className='bg-transparent pl-5 pr-2 w-full outline-none flex-1'/>
-            <Button className='rounded-full m-[2px] w-[2.2rem] h-[2.2rem] bg-zinc-50' size="icon">
-              <Search className="h-4 w-4 text-black"/>
+        <section className="flex items-center gap-4">
+          <div className="border-[3px] rounded-full bg-background border-zinc-50 w-[18rem] relative flex items-center justify-between">
+            <input className="bg-transparent pl-5 pr-2 w-full outline-none flex-1" />
+            <Button
+              className="rounded-full m-[2px] w-[2.2rem] h-[2.2rem] bg-zinc-50"
+              size="icon"
+            >
+              <Search className="h-4 w-4 text-black" />
             </Button>
           </div>
           <ul>
-            <li>
-            </li>
+            <li></li>
           </ul>
+          <InviteDoctorsModal />
         </section>
       </Wrapper>
     </nav>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;
