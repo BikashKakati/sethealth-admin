@@ -62,8 +62,8 @@ const AddServicesModal: React.FC<DoctorModalProptype> = ({
         </DialogHeader>
         <form onSubmit={handleAddService}>
           <div className="grid gap-4 py-4">
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="name" className="text-right">
+            <div className="grid grid-cols-4 items-center justify-start gap-4">
+              <Label htmlFor="name" className="">
                 Name
               </Label>
               <Input
@@ -79,7 +79,7 @@ const AddServicesModal: React.FC<DoctorModalProptype> = ({
               />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="symptoms" className="text-right">
+              <Label htmlFor="symptoms" className="">
                 Symptoms
               </Label>
               <Textarea
@@ -91,7 +91,7 @@ const AddServicesModal: React.FC<DoctorModalProptype> = ({
                     symptoms: e.target.value,
                   })
                 }
-                className="col-span-3"
+                className="col-span-3 max-h-[14rem]"
                 placeholder="Enter symptoms separated by commas"
               />
             </div>
