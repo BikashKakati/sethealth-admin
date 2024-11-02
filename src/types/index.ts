@@ -19,6 +19,6 @@ export type DoctorModalProptype = {
 //services
 export interface Service {
   id: number;
-  name: string;
+  serviceName: string;
   symptoms: string[];
 }

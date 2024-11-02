@@ -13,18 +13,18 @@ import { Stethoscope, Search } from "lucide-react";
 import DataTable, { TableColumn } from "react-data-table-component";
 import AddServicesModal from "@/components/modals/AddServicesModal";
 import { Service } from "@/types";
-import { useSelector } from "react-redux";
-import { RootState } from "@/store/store";
+import { useGetAllServicesQuery } from "@/store/apiSlice/servicesApi";
 
 const ServicesPage = () => {
-  const services = useSelector(
-    (state: RootState) => state.serveicesSlice.services
-  );
+
+  const { data: services, isLoading: isServicesLoading } =
+    useGetAllServicesQuery("");
+
   const [searchTerm, setSearchTerm] = useState("");
-  const filteredServices = services.filter(
+  const filteredServices = services?.data?.filter(
     (service: Service) =>
-      service.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      service.symptoms.some((symptom:string) =>
+      service?.serviceName?.toLowerCase()?.includes(searchTerm.toLowerCase()) ||
+      service?.symptoms.some((symptom: string) =>
         symptom.toLowerCase().includes(searchTerm.toLowerCase())
       )
   );
@@ -32,7 +32,7 @@ const ServicesPage = () => {
   const columns: TableColumn<Service>[] = [
     {
       name: "Service Name",
-      selector: (row) => row.name,
+      cell: (row) => row.serviceName,
       sortable: true,
       width: "300px",
     },
@@ -77,16 +77,20 @@ const ServicesPage = () => {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <DataTable
-            columns={columns}
-            data={filteredServices}
-            pagination
-            noDataComponent={
-              <div className="text-center py-4 text-muted-foreground">
-                No services found matching your search.
-              </div>
-            }
-          />
+          {isServicesLoading ? (
+            "Loading..."
+          ) : (
+            <DataTable
+              columns={columns}
+              data={filteredServices}
+              pagination
+              noDataComponent={
+                <div className="text-center py-4 text-muted-foreground">
+                  No services found matching your search.
+                </div>
+              }
+            />
+          )}
         </CardContent>
       </Card>
     </div>

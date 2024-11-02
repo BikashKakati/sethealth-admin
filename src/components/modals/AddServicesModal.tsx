@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -8,38 +8,50 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Plus } from "lucide-react";
+import { useCreateServiceMutation } from "@/store/apiSlice/servicesApi";
+import { DoctorModalProptype } from "@/types";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Loader2, Plus } from "lucide-react";
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 import { Input } from "../ui/input";
-import { DoctorModalProptype, Service } from "@/types";
-import { useDispatch } from "react-redux";
-import { addServices } from "@/store/reducersSlice/Doctor";
+import { createServiceSchema, CreateServiceSchemaType } from "./schema";
 
 const AddServicesModal: React.FC<DoctorModalProptype> = ({
   hideTrigger = false,
   children,
 }) => {
-  const [newService, setNewService] = useState({ name: "", symptoms: "" });
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const dispatch = useDispatch();
+  const [createService, {isLoading:isCreateSeviceLoading}] = useCreateServiceMutation();
 
-  const handleAddService = (e: React.FormEvent) => {
-    e.preventDefault();
-    const symptoms = newService.symptoms
-      .split(",")
-      .map((s) => s.trim())
-      .filter((s) => s !== "");
-    const newServiceObj: Service = {
-      id: 1,
-      name: newService.name,
-      symptoms,
-    };
-    dispatch(addServices(newServiceObj));
-    setNewService({ name: "", symptoms: "" });
-    setIsDialogOpen(false);
-  };
+  const form = useForm({
+    resolver: zodResolver(createServiceSchema),
+    defaultValues: {
+      name: "",
+      symptoms: "",
+    },
+  });
+
+  const handleAddService = async (values:CreateServiceSchemaType) => {
+   try{
+    const symptoms = values.symptoms
+    .split(",")
+    .map((s) => s.trim())
+    .filter((s) => s !== "");
+
+    await createService({
+      serviceName: values.name,
+      symptoms
+    })
+
+  
+  setIsDialogOpen(false);
+   }catch(err:unknown){
+    console.log("Service creation failded",err);
+   }
+  }
 
   return (
     <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
@@ -60,46 +72,55 @@ const AddServicesModal: React.FC<DoctorModalProptype> = ({
             Enter the details of the new service you'd like to add.
           </DialogDescription>
         </DialogHeader>
-        <form onSubmit={handleAddService}>
-          <div className="grid gap-4 py-4">
-            <div className="grid grid-cols-4 items-center justify-start gap-4">
-              <Label htmlFor="name" className="">
-                Name
-              </Label>
-              <Input
-                id="name"
-                value={newService.name}
-                onChange={(e) =>
-                  setNewService({
-                    ...newService,
-                    name: e.target.value,
-                  })
-                }
-                className="col-span-3"
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(handleAddService)}>
+            <div className="gap-2 space-y-2 py-2">
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Name</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Enter full name" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="symptoms"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Symptoms</FormLabel>
+                    <FormControl>
+                      <Textarea className="max-h-[14rem]" placeholder="Enter symptoms separated by commas" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
               />
             </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="symptoms" className="">
-                Symptoms
-              </Label>
-              <Textarea
-                id="symptoms"
-                value={newService.symptoms}
-                onChange={(e) =>
-                  setNewService({
-                    ...newService,
-                    symptoms: e.target.value,
-                  })
-                }
-                className="col-span-3 max-h-[14rem]"
-                placeholder="Enter symptoms separated by commas"
-              />
-            </div>
-          </div>
-          <DialogFooter>
-            <Button type="submit">Add Service</Button>
-          </DialogFooter>
-        </form>
+            <DialogFooter>
+              <Button
+                type="submit"
+                className="mt-2 transition-all duration-200"
+                disabled={isCreateSeviceLoading}
+              >
+                {isCreateSeviceLoading ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Creating...
+                  </>
+                ) : (
+                  "Create"
+                )}
+              </Button>
+            </DialogFooter>
+          </form>
+        </Form>
       </DialogContent>
     </Dialog>
   );
