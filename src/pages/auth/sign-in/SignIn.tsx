@@ -14,8 +14,10 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { useLoginUserMutation } from "@/store/apiSlice/authApi";
 
 const SignIn: React.FC = () => {
+  const [loginUser, {isLoading:loginLoading}] = useLoginUserMutation();
   const form = useForm<z.infer<typeof signInSchema>>({
     resolver: zodResolver(signInSchema),
     defaultValues: {
@@ -24,9 +26,9 @@ const SignIn: React.FC = () => {
     },
   });
 
-  const handleSubmit = (values: z.infer<typeof signInSchema>) => {
-    // Handle login logic here
-    console.log("Login attempted with:", values);
+  const handleSubmit = async(values: z.infer<typeof signInSchema>) => {
+    const response = await loginUser(values);
+    console.log(response);
   };
 
   const title = "Set Your Health";
@@ -82,7 +84,7 @@ const SignIn: React.FC = () => {
                 type="submit"
                 className="w-full flex items-center justify-center"
               >
-                Login
+                {loginLoading ? "Loading...":"Login"}
                 <ArrowRight className="ml-2" size={20} />
               </Button>
             </form>
