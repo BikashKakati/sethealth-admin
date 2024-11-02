@@ -14,7 +14,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2, Stethoscope } from "lucide-react";
 import {useState } from "react";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 import {
   Form,
   FormControl,
@@ -23,7 +22,7 @@ import {
   FormLabel,
   FormMessage,
 } from "../ui/form";
-import { inviteDoctorsSchema } from "./schema";
+import { inviteDoctorsSchema, InviteSchemaType } from "./schema";
 import { DoctorModalProptype } from "@/types/index";
 
 const InviteDoctorsModal:React.FC<DoctorModalProptype> = ({hideTrigger=false,children}) => {
@@ -41,7 +40,7 @@ const InviteDoctorsModal:React.FC<DoctorModalProptype> = ({hideTrigger=false,chi
     },
   });
 
-  const handleInvite = async (values: z.infer<typeof inviteDoctorsSchema>) => {
+  const handleInvite = async (values: InviteSchemaType) => {
     try {
       const response = await sendInvite(values);
       console.log(response);
