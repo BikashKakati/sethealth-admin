@@ -9,7 +9,7 @@ const RootLayout: React.FC = () => {
   return (
     <SidebarProvider>
       <AppSidebar />
-      <main className="flex flex-col items-center justify-center flex-1">
+      <main className="flex flex-col items-center justify-center md:w-[calc(100dvw-15rem)]">
         <Navbar />
         <Wrapper className="my-5">
           <Outlet />
