@@ -15,7 +15,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2, Plus } from "lucide-react";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "../ui/form";
 import { Input } from "../ui/input";
 import { createServiceSchema, CreateServiceSchemaType } from "./schema";
 
@@ -24,7 +31,8 @@ const AddServicesModal: React.FC<DoctorModalProptype> = ({
   children,
 }) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [createService, {isLoading:isCreateSeviceLoading}] = useCreateServiceMutation();
+  const [createService, { isLoading: isCreateServiceLoading }] =
+    useCreateServiceMutation();
 
   const form = useForm({
     resolver: zodResolver(createServiceSchema),
@@ -34,24 +42,24 @@ const AddServicesModal: React.FC<DoctorModalProptype> = ({
     },
   });
 
-  const handleAddService = async (values:CreateServiceSchemaType) => {
-   try{
-    const symptoms = values.symptoms
-    .split(",")
-    .map((s) => s.trim())
-    .filter((s) => s !== "");
+  const handleAddService = async (values: CreateServiceSchemaType) => {
+    try {
+      const symptoms = values.symptoms
+        .split(",")
+        .map((s) => s.trim())
+        .filter((s) => s !== "");
 
-    await createService({
-      serviceName: values.name,
-      symptoms
-    })
+      await createService({
+        serviceName: values.name,
+        symptoms,
+      });
 
-  
-  setIsDialogOpen(false);
-   }catch(err:unknown){
-    console.log("Service creation failded",err);
-   }
-  }
+      form.reset();
+      setIsDialogOpen(false);
+    } catch (err: unknown) {
+      console.log("Service creation failed", err);
+    }
+  };
 
   return (
     <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
@@ -96,7 +104,11 @@ const AddServicesModal: React.FC<DoctorModalProptype> = ({
                   <FormItem>
                     <FormLabel>Symptoms</FormLabel>
                     <FormControl>
-                      <Textarea className="max-h-[14rem]" placeholder="Enter symptoms separated by commas" {...field} />
+                      <Textarea
+                        className="max-h-[14rem]"
+                        placeholder="Enter symptoms separated by commas"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -107,9 +119,9 @@ const AddServicesModal: React.FC<DoctorModalProptype> = ({
               <Button
                 type="submit"
                 className="mt-2 transition-all duration-200"
-                disabled={isCreateSeviceLoading}
+                disabled={isCreateServiceLoading}
               >
-                {isCreateSeviceLoading ? (
+                {isCreateServiceLoading ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                     Creating...

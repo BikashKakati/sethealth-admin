@@ -54,11 +54,10 @@ const InviteDoctorsModal: React.FC<DoctorModalProptype> = ({
       } else {
         toast({ variant: "success", title: response.data?.message });
       }
+      form.reset();
+      setIsMenuOpen(!isMenuOpen);
     } catch (err) {
       console.log(err);
-      // toast.error(err);
-    } finally {
-      setIsMenuOpen(!isMenuOpen);
     }
   };
   return (
