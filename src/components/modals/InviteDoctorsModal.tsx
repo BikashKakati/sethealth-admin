@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -12,7 +13,7 @@ import { Input } from "@/components/ui/input";
 import { useInviteDoctorMutation } from "@/store/apiSlice/inviteApi";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2, Stethoscope } from "lucide-react";
-import {useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import {
   Form,
@@ -24,13 +25,16 @@ import {
 } from "../ui/form";
 import { inviteDoctorsSchema, InviteSchemaType } from "./schema";
 import { DoctorModalProptype } from "@/types/index";
+import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
+import { useToast } from "@/hooks/use-toast";
 
-const InviteDoctorsModal:React.FC<DoctorModalProptype> = ({hideTrigger=false,children}) => {
-
+const InviteDoctorsModal: React.FC<DoctorModalProptype> = ({
+  hideTrigger = false,
+  children,
+}) => {
   const [sendInvite, { isLoading }] = useInviteDoctorMutation();
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
-  
-  
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { toast } = useToast();
 
   const form = useForm({
     resolver: zodResolver(inviteDoctorsSchema),
@@ -43,24 +47,30 @@ const InviteDoctorsModal:React.FC<DoctorModalProptype> = ({hideTrigger=false,chi
   const handleInvite = async (values: InviteSchemaType) => {
     try {
       const response = await sendInvite(values);
-      console.log(response);
+
+      if (response.error) {
+        const errMessage: any = (response.error as FetchBaseQueryError)?.data;
+        toast({ variant: "destructive", title: errMessage?.message });
+      } else {
+        toast({ variant: "success", title: response.data?.message });
+      }
     } catch (err) {
       console.log(err);
       // toast.error(err);
+    } finally {
+      setIsMenuOpen(!isMenuOpen);
     }
   };
   return (
     <Dialog open={isMenuOpen} onOpenChange={() => setIsMenuOpen(!isMenuOpen)}>
       <DialogTrigger asChild>
-        {
-          hideTrigger ? children:
-          <Button
-          variant="default"
-          className="rounded-full text-white"
-        >
-          Invite Doctors
-        </Button>
-        }
+        {hideTrigger ? (
+          children
+        ) : (
+          <Button variant="default" className="rounded-full text-white">
+            Invite Doctors
+          </Button>
+        )}
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
