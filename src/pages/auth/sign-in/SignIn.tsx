@@ -16,6 +16,8 @@ import { useNavigate } from "react-router-dom";
 import { z } from "zod";
 import { signInSchema } from "../schemas";
 import Artwork from "./Artwork";
+import { dispatch } from "@/constants";
+import { handleIsAuthendicated } from "@/store/reducersSlice/authSlice";
 
 
 const SignIn: React.FC = () => {
@@ -35,9 +37,9 @@ const SignIn: React.FC = () => {
     const response = await loginUser(values);
 
     if(!response.error){
+      dispatch(handleIsAuthendicated(true));
       navigate("/");
     }
-     
 
   };
 
