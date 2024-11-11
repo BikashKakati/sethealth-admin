@@ -1,12 +1,8 @@
 import { store } from "@/store/store";
-import { Calendar, Home, LucideIcon, Luggage, Stethoscope } from "lucide-react";
+import { SidebarItemsType } from "@/types";
+import { Calendar, CalendarDays, CircleDollarSign, Home, Luggage, Stethoscope, Users } from "lucide-react";
 
-interface SidebarItemsType {
-  title: string;
-  url: string;
-  icon: LucideIcon;
-  isAddButton?: () => void;
-}
+
 
 export const items: SidebarItemsType[] = [
   {
@@ -32,5 +28,40 @@ export const items: SidebarItemsType[] = [
     isAddButton: () => {},
   },
 ];
+
+export const totalDataCountList = [
+  {
+    title: "doctors",
+    icon: Stethoscope,
+    iconBgColor: "bg-blue-200",
+    iconTextColor:"text-blue-500",
+    growth: 25,
+    numbersData: 30,
+  },
+  {
+    title: "patients",
+    icon: Users,
+    iconBgColor: "bg-green-200",
+    iconTextColor:"text-green-500",
+    growth: 25,
+    numbersData: 30,
+  },
+  {
+    title: "appointments",
+    icon: CalendarDays,
+    iconBgColor: "bg-indigo-200",
+    iconTextColor:"text-indigo-500",
+    growth: 25,
+    numbersData: 30,
+  },
+  {
+    title: "Earnings",
+    icon: CircleDollarSign,
+    iconBgColor: "bg-purple-200",
+    iconTextColor:"text-purple-500",
+    growth: 25,
+    numbersData: 30,
+  },
+]
 
 export const dispatch = store.dispatch;

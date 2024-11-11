@@ -1,5 +1,6 @@
 // Auth
 
+import { LucideIcon } from "lucide-react";
 import { ReactNode } from "react";
 
 export type ArtworkProptype = {
@@ -30,4 +31,11 @@ export type DoctorType = {
   appointments:number;
   rating:number;
   revenue:number;
+}
+
+export type SidebarItemsType ={
+  title: string;
+  url: string;
+  icon: LucideIcon;
+  isAddButton?: () => void;
 }
